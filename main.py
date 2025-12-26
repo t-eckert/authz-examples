@@ -1,6 +1,8 @@
-def main():
-    print("Hello from authz-examples!")
+from fastapi import FastAPI
 
+app = FastAPI()
 
-if __name__ == "__main__":
-    main()
+@app.get("/")
+async def read():
+    return {"message": "Hello, World!"}
+
