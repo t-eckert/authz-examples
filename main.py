@@ -1,5 +1,8 @@
 """
 # Authorization Methods
+
+This example works through five different ways to authorize users to take actions on resources in an API.
+They methods of authorization start simple and get more complex as we go on.
 """
 
 from typing import Annotated
@@ -32,7 +35,12 @@ To demonstrate the different methods of authorization, we'll take a look at a do
 Cola Co has five defined users: Avery, Jordan, Riley, Morgan, and Taylor.
 
 Avery is the senior engineer in the engineering department and has admin access.
-Jordan runs the marketing department. Riley is a sales associate. Morgan works in HR. Taylor is an engineering intern.
+Jordan runs the marketing department. 
+Riley is a sales associate. 
+Morgan works in HR. 
+Taylor is an engineering intern.
+
+We define these users below with their given departments, titles, and roles.
 """
 
 USERS = {
@@ -69,7 +77,13 @@ USERS = {
 }
 
 """
-The crew at Cola Co have created a few documents that they work on collaboratively.
+The crew at Cola Co have created a few documents that they work on collaboratively. 
+
+Morgan, the head of HR, has written a document called "How to Behave Like an Adult at Work". The document does not have any other collaborators. 
+
+Avery is working on a document called "Top Secret Next Generation AI Application".
+
+
 """
 
 DOCUMENTS = {
@@ -95,10 +109,16 @@ DOCUMENTS = {
 
 """
 ## API Endpoints
+
+To create, read, update, and delete documents, we'll add the following endpoints:
+- POST /documents
+- GET /documents/{id}
+- PATCH /documents/{id}
+- DELETE /documents/{id}
 """
 
 
-@app.post("/documents/{id}")
+@app.post("/documents")
 async def create_document(
     id: int, authz_method: str, authorization: Annotated[str | None, Header()] = None
 ):
